@@ -11,12 +11,12 @@
 	<groupId>com.redhat.demo</groupId>
 	<artifactId>dbaas-demo-apps</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
 	<name>spring-boot-dbaas-demo-apps</name>
 	<description>Spring Boot DBaaS Demo Apps</description>
 	<properties>
 		<skipTests>true</skipTests>
 		<java.version>11</java.version>
-		<start-class>com.redhat.dbaasdemoapps.postgresql.application.PostgreSqlApplication</start-class>
 	</properties>
 	<repositories>
 		<repository>
@@ -31,21 +31,9 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-bindings</artifactId>
 			<version>1.7.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -53,14 +41,8 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
+	<modules>
+		<module>postgresql-app</module>
+		<module>mongodb-app</module>
+	</modules>
 </project>

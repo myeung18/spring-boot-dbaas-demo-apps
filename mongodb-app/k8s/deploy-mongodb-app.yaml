@@ -1,0 +1,52 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dbaas-spring-mongodb-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dbaas-spring-mongodb-app
+  template:
+    metadata:
+      labels:
+        app: dbaas-spring-mongodb-app
+        deploymentconfig: dbaas-spring-mongodb-app
+    spec:
+      containers:
+        - name: dbaas-spring-mongodb-app
+          image: quay.io/myeung/dbaas-spring-mongodb-demo:v0.0.1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: dbaas-spring-mongodb-app
+  name: dbaas-spring-mongodb-app
+spec:
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: dbaas-spring-mongodb-app
+    deploymentconfig: dbaas-spring-mongodb-app
+  type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  labels:
+    app: dbaas-spring-mongodb-app
+  name: dbaas-spring-mongodb-app
+spec:
+  to:
+    kind: Service
+    name: dbaas-spring-mongodb-app
