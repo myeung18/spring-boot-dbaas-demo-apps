@@ -17,8 +17,18 @@ public class ServiceBindingConfig {
     @Autowired
     private ConfigurableApplicationContext configurableApplicationContext;
 
-    @Bean(name = "ServiceBindingDataSource")
+    @Bean
     @Primary
+    public DataSource createLocalPostgreSqlDataSource() {
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName("org.postgresql.Driver");
+        dataSourceBuilder.url("jdbc:postgresql://172.17.0.2:5432/upperio");
+        dataSourceBuilder.username("upperio_user");
+        dataSourceBuilder.password("upperio//s3cr37");
+        return dataSourceBuilder.build();
+    }
+
+//    @Bean(name = "ServiceBindingDataSource")
     public DataSource createPostgreSqlDataSource() {
         PropertySource<?> dbBinding = configurableApplicationContext.getEnvironment().getPropertySources().get("kubernetesServiceBindingSpecific");
 
@@ -26,10 +36,10 @@ public class ServiceBindingConfig {
         if (dbBinding instanceof MapPropertySource) {
             Map<String, Object> map = ((MapPropertySource) dbBinding).getSource();
 
-            dataSourceBuilder.driverClassName((String)map.get("spring.datasource.driver-class-name"));
-            dataSourceBuilder.url((String)map.get("spring.datasource.url"));
-            dataSourceBuilder.username((String)map.get("spring.datasource.username"));
-            dataSourceBuilder.password((String)map.get("spring.datasource.password"));
+            dataSourceBuilder.driverClassName((String) map.get("spring.datasource.driver-class-name"));
+            dataSourceBuilder.url((String) map.get("spring.datasource.url"));
+            dataSourceBuilder.username((String) map.get("spring.datasource.username"));
+            dataSourceBuilder.password((String) map.get("spring.datasource.password"));
         }
         return dataSourceBuilder.build();
     }
