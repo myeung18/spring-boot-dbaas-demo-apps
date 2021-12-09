@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dbaas-spring-postgresql-app
-          image: quay.io/myeung/dbaas-spring-postgresql-demo:v0.0.1
+          image: spring-postgresql-app:0.0.1-SNAPSHOT
           ports:
             - containerPort: 8080
               protocol: TCP
