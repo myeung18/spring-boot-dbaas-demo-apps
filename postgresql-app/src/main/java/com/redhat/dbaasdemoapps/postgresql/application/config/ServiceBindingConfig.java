@@ -17,16 +17,6 @@ public class ServiceBindingConfig {
     @Autowired
     private ConfigurableApplicationContext configurableApplicationContext;
 
-    //    @Bean
-    public DataSource createLocalPostgreSqlDataSource() {
-        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
-        dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://172.17.0.2:5432/upperio");
-        dataSourceBuilder.username("upperio_user");
-        dataSourceBuilder.password("upperio//s3cr37");
-        return dataSourceBuilder.build();
-    }
-
     @Bean(name = "ServiceBindingDataSource")
     @Primary
     public DataSource createPostgreSqlDataSource() {

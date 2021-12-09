@@ -9,27 +9,21 @@ import org.springframework.cloud.bindings.Bindings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
 @Configuration
 public class MongoDBServiceBindingConfig {
 
-    //    @Bean
-    public MongoClient mongo() throws Exception {
-//        final ConnectionString connectionString = new ConnectionString("mongodb://myuser:mypassword@172.17.0.3:27017/fruits?authSource=admin");
-        final ConnectionString connectionString = new ConnectionString("mongodb+srv://myuser:mypassword@cluster0.qhhuv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
-        final MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
-        return MongoClients.create(mongoClientSettings);
-    }
-
     @Bean(name = "ServiceBindingMongoClient")
-    public MongoClient createMongoClient() {
+    public MongoClient createMongoClient() throws Exception {
         List<Binding> bindings = new Bindings().filterBindings("mongodb");
         Map<String, String> binding = bindings.get(0).getSecret();
         String un = binding.get("username");
         String pwd = binding.get("password");
-        String dbName = binding.get("database");
+        String database = binding.get("database");
         String host = binding.get("host");
         String srv = binding.get("srv");
         String options = binding.get("options");
@@ -39,13 +33,26 @@ public class MongoDBServiceBindingConfig {
             sb.append("mongodb+srv://");
         }
 
-        sb.append(un).append(":").append(pwd).append("@").append(host).append("/").append(dbName);
-        if (options != null || !"".equals(options)) {
-            sb.append("?").append(options);
-        }
+        sb.append(encoding(un)).append(":").append(encoding(pwd)).append("@").append(host);
 
-        final ConnectionString connectionString = new ConnectionString(sb.toString());
-        final MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
+        String dbString = "";
+        if (options != null && !"".equals(options)) {
+            dbString = "?" + options;
+        }
+        if (database != null && !"".equals(database)) {
+            dbString = "/" + database + dbString;
+        } else if (options != null && !"".equals(options)) {
+            //with options but no db => <host>/?options...
+            dbString = "/" + dbString;
+        }
+        sb.append(dbString);
+
+        ConnectionString connectionString = new ConnectionString(sb.toString());
+        MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
         return MongoClients.create(mongoClientSettings);
+    }
+
+    private String encoding(String str) throws Exception {
+        return URLEncoder.encode(str, StandardCharsets.UTF_8.toString());
     }
 }

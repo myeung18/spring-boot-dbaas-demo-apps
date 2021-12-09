@@ -8,7 +8,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.redhat.demo</groupId>
-	<artifactId>postgresql-app</artifactId>
+	<artifactId>spring-postgresql-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PostgreSql Demo App</name>
 	<description>Spring Boot DBaaS Demo Apps - PostgreSql</description>

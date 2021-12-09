@@ -8,15 +8,14 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.redhat.demo</groupId>
-	<artifactId>mongodb-app</artifactId>
+	<artifactId>spring-mongodb-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MongoDB Demo App</name>
 	<description>Spring Boot DBaaS Demo Apps - MongoDB</description>
 	<properties>
 		<skipTests>true</skipTests>
 		<java.version>11</java.version>
-<!--		<start-class>com.redhat.dbaasdemoapps.postgresql.application.PostgreSqlApplication</start-class>-->
-		<start-class>com.redhat.dbaasdemoapps.mongodb.application.MongoDbAppliction</start-class>
+		<start-class>com.redhat.dbaasdemoapps.mongodb.application.MongoDbApplication</start-class>
 	</properties>
 	<dependencies>
 		<dependency>
