@@ -17,11 +17,13 @@ public class ServiceBindingConfig {
     @Autowired
     private ConfigurableApplicationContext configurableApplicationContext;
 
-    @Bean(name = "ServiceBindingDataSource")
-    @Primary
+//    @Bean(name = "ServiceBindingDataSource")
+//    @Primary
+    /**
+     * Test only
+     */
     public DataSource createPostgreSqlDataSource() {
         PropertySource<?> dbBinding = configurableApplicationContext.getEnvironment().getPropertySources().get("kubernetesServiceBindingSpecific");
-
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         if (dbBinding instanceof MapPropertySource) {
             Map<String, Object> map = ((MapPropertySource) dbBinding).getSource();
@@ -31,6 +33,7 @@ public class ServiceBindingConfig {
             dataSourceBuilder.username((String) map.get("spring.datasource.username"));
             dataSourceBuilder.password((String) map.get("spring.datasource.password"));
         }
+
         return dataSourceBuilder.build();
     }
 }

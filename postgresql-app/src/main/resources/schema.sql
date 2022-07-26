@@ -1,4 +1,4 @@
-CREATE TABLE fruit
+CREATE TABLE IF NOT EXISTS fruit
 (
  id varchar(40) NOT NULL,
  name varchar(100) NOT NULL,
