@@ -6,7 +6,7 @@ Tested with:
 ## Building/deploying all modules
 ```shell
 # build all modules
-$ mvn spring-boot:build-image
+$ ./mvnw spring-boot:build-image
 
 # push the images to your docker image registry
 # e.g. mongodb
@@ -22,15 +22,23 @@ $ oc apply -f postgresql-app/k8s/deploy-postgresql-app.yaml
 # build individual module, and customize the image name: e.g. mongodb-app
 $ cd mongodb-app
 
-$ mvn spring-boot:build-image -Dspring-boot.build-image.imageName=quay.io/<someaccount>/dbaas-spring-mongodb-demo:v0.0.1
+$ ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=quay.io/<someaccount>/spring-mongodb-demo:v0.0.1
 
-$ docker push quay.io/<someaccount>/dbaas-spring-mongodb-demo:v0.0.1
+$ docker push quay.io/<someaccount>/spring-mongodb-demo:v0.0.1
 
-# edit/update the deployment script for your customized image
-# file: k8s/deploy-mongodb-app.yaml
+
+# edit/update the deployment yaml (file: k8s/deploy-mongodb-app.yaml) for your customized image
 
 # deploy the application to a OpenShift cluster
 $ oc apply -f k8s/deploy-mongodb-app.yaml 
+```
+
+```shell
+# for postgresql
+$ cd postgresql-app
+
+$ ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=quay.io/<someaccount>/spring-postgresql-demo:v0.0.1
+
 ```
 
 ## Service Binding
