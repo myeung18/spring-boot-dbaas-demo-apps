@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: dbaas-spring-mongodb-app
-          image: spring-mongodb-app:0.0.1-SNAPSHOT
+          image: quay.io/myeung/spring-mongodb-demo:v0.0.1
           ports:
             - containerPort: 8080
               protocol: TCP
