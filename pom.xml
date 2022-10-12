@@ -43,7 +43,7 @@
 		</dependency>
 	</dependencies>
 	<modules>
-		<module>postgresql-app</module>
+<!--		<module>postgresql-app</module>-->
 		<module>mongodb-app</module>
 	</modules>
 </project>
