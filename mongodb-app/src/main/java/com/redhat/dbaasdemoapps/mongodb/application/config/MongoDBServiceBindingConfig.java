@@ -48,6 +48,7 @@ public class MongoDBServiceBindingConfig {
         sb.append(dbString);
 
         ConnectionString connectionString = new ConnectionString(sb.toString());
+        System.out.println("Conn-str: " + connectionString);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder().applyConnectionString(connectionString).build();
         return MongoClients.create(mongoClientSettings);
     }

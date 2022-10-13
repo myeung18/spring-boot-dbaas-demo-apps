@@ -37,6 +37,7 @@ public class ApplicationController {
         Fruit cur = fruitRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Fruit not found."));
         cur.setQuantity(theFruit.getQuantity());
+        cur.setName(theFruit.getName());
         return fruitRepository.save(cur);
     }
 

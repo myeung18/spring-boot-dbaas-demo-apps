@@ -3,21 +3,44 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.redhat.demo</groupId>
-		<artifactId>dbaas-demo-apps</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.3</version>
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.redhat.demo</groupId>
 	<artifactId>spring-mongodb-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>MongoDB Demo App</name>
-	<description>Spring Boot DBaaS Demo Apps - MongoDB</description>
+	<description>DBaaS Demo Apps - MongoDB</description>
 	<properties>
 		<skipTests>true</skipTests>
 		<java.version>11</java.version>
 		<start-class>com.redhat.dbaasdemoapps.mongodb.application.MongoDbApplication</start-class>
 	</properties>
+	<repositories>
+		<repository>
+			<id>spring-repo</id>
+			<name>Spring Repository</name>
+			<url>https://repo.spring.io/release</url>
+		</repository>
+	</repositories>
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-bindings -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-bindings</artifactId>
+			<version>1.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
@@ -29,6 +52,12 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<org.springframework.cloud.bindings.boot.enable>true</org.springframework.cloud.bindings.boot.enable>
+						<org.springframework.cloud.bindings.boot.mongodb.enable>true</org.springframework.cloud.bindings.boot.mongodb.enable>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
