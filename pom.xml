@@ -12,8 +12,8 @@
 	<artifactId>dbaas-demo-apps</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>spring-boot-dbaas-demo-apps</name>
-	<description>Spring Boot DBaaS Demo Apps</description>
+	<name>dbaas-spring-demo</name>
+	<description>DBaaS Spring Demo</description>
 	<properties>
 		<skipTests>true</skipTests>
 		<java.version>11</java.version>
